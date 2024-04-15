@@ -1,15 +1,8 @@
-'use client';
-
 import React from 'react';
 import { useTheme } from 'next-theme-kit';
-import { ButtonProps, Button } from 'ui/components/button';
+import {  Button } from 'ui/components/button';
 
-interface ThemeTogglerProps extends Omit<ButtonProps, 'onClick'> {
-  children?: React.ReactNode;
-}
-
-const ThemeToggler: React.FC<ThemeTogglerProps> = (props) => {
-  const { children, ...rest } = props;
+const ThemeToggler: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
   const handleThemeChange = (): void => {
@@ -17,7 +10,7 @@ const ThemeToggler: React.FC<ThemeTogglerProps> = (props) => {
   };
 
   return (
-    <Button aria-label="Toggle Theme" onClick={handleThemeChange} {...rest}>
+    <Button aria-label="Toggle Theme" size="icon" onClick={handleThemeChange} >
       <svg
         className="block h-6 w-6 stroke-current dark:hidden"
         fill="none"
@@ -47,7 +40,6 @@ const ThemeToggler: React.FC<ThemeTogglerProps> = (props) => {
         <path d="M0 0h24v24H0z" fill="none" stroke="none" />
         <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
       </svg>
-      {children}
     </Button>
   );
 };
