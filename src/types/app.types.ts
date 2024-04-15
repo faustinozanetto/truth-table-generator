@@ -9,9 +9,10 @@ export type ActionMap<M extends Record<string, unknown>> = {
       };
 };
 
-/* App State */
+/* ======================== App State ======================== */
 export interface AppState {
   expression: string | null;
+  inputRef: React.MutableRefObject<HTMLInputElement | null>;
 }
 
 export interface AppContextState {
@@ -22,6 +23,8 @@ export interface AppContextState {
 export enum AppActionType {
   SET_EXPRESSION,
   CLEAR_EXPRESSION,
+  APPEND_CHARACTER,
+  SET_INPUT_REF,
 }
 
 type AppPayload = {
@@ -29,6 +32,18 @@ type AppPayload = {
     expression: string;
   };
   [AppActionType.CLEAR_EXPRESSION]: {};
+  [AppActionType.APPEND_CHARACTER]: {
+    character: CharacterData;
+  };
+  [AppActionType.SET_INPUT_REF]: {
+    inputRef: React.MutableRefObject<HTMLInputElement | null>;
+  };
 };
 
 export type AppActions = ActionMap<AppPayload>[keyof ActionMap<AppPayload>];
+
+/* ======================== Characters ======================== */
+export interface CharacterData {
+  name: string;
+  value: string;
+}

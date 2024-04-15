@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { AppContextState, AppState } from 'types/app.types';
 
 const initialState: AppContextState = {
-  state: { expression: null },
+  state: { expression: null, inputRef: { current: null } },
   dispatch: () => {},
 };
 

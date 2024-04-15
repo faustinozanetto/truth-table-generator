@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppActionType, AppState } from 'types/app.types';
 import useAppState from './use-app-state';
 import useDebounce from './use-debounce';
 
 interface UseExpressionInputReturn {
   expression: AppState['expression'];
-  inputRef: React.MutableRefObject<HTMLInputElement | null>;
   deleteExpression: () => void;
   copyExpression: () => void;
   handleInputChange: (value: string) => void;
@@ -14,28 +13,25 @@ interface UseExpressionInputReturn {
 const useExpressionInput = (): UseExpressionInputReturn => {
   const { dispatch, state } = useAppState();
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [inputValue, setInputValue] = useState<string>('');
-  const debouncedInputValue = useDebounce<string>(inputValue, 100);
+  // const debouncedInputValue = useDebounce<string>(inputValue, 100);
 
-  useEffect(() => {
-    dispatch({ type: AppActionType.SET_EXPRESSION, payload: { expression: debouncedInputValue } });
-  }, [debouncedInputValue]);
+  // useEffect(() => {
+  //   dispatch({ type: AppActionType.SET_EXPRESSION, payload: { expression: inputValue } });
+  // }, [inputValue]);
 
   const deleteExpression = () => {
-    if (inputRef.current) inputRef.current.value = '';
-    setInputValue('');
+    if (state.inputRef.current) state.inputRef.current.value = '';
+    dispatch({ type: AppActionType.CLEAR_EXPRESSION, payload: {} });
   };
 
   const copyExpression = () => {};
 
   const handleInputChange = (value: string) => {
-    setInputValue(value);
+    dispatch({ type: AppActionType.SET_EXPRESSION, payload: { expression: value } });
   };
 
   return {
     expression: state.expression,
-    inputRef,
     deleteExpression,
     copyExpression,
     handleInputChange,
