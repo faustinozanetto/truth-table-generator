@@ -11,24 +11,14 @@ export const appReducer = (state: AppState, action: AppActions): AppState => {
     case AppActionType.CLEAR_EXPRESSION: {
       return {
         ...state,
-        expression: null,
+        expression: '',
       };
     }
     case AppActionType.APPEND_CHARACTER: {
       const expression = `${state.expression ?? ''}${action.payload.character.value}`;
-      if (state.inputRef.current) {
-        const inputValue = state.inputRef.current.value;
-        state.inputRef.current.value = `${inputValue}${action.payload.character.value}`;
-      }
       return {
         ...state,
         expression,
-      };
-    }
-    case AppActionType.SET_INPUT_REF: {
-      return {
-        ...state,
-        inputRef: action.payload.inputRef,
       };
     }
     default:

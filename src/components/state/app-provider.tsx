@@ -10,7 +10,7 @@ const AppProvider: React.FC<AppProviderProps> = (props) => {
   const { children } = props;
 
   const [state, dispatch] = useReducer(appReducer, {
-    expression: null,
+    expression: '',
   });
 
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;

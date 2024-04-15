@@ -1,8 +1,8 @@
 import { createContext } from 'react';
-import { AppContextState, AppState } from 'types/app.types';
+import { AppContextState } from 'types/app.types';
 
 const initialState: AppContextState = {
-  state: { expression: null, inputRef: { current: null } },
+  state: { expression: '' },
   dispatch: () => {},
 };
 

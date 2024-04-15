@@ -11,8 +11,7 @@ export type ActionMap<M extends Record<string, unknown>> = {
 
 /* ======================== App State ======================== */
 export interface AppState {
-  expression: string | null;
-  inputRef: React.MutableRefObject<HTMLInputElement | null>;
+  expression: string;
 }
 
 export interface AppContextState {
@@ -35,9 +34,6 @@ type AppPayload = {
   [AppActionType.APPEND_CHARACTER]: {
     character: CharacterData;
   };
-  [AppActionType.SET_INPUT_REF]: {
-    inputRef: React.MutableRefObject<HTMLInputElement | null>;
-  };
 };
 
 export type AppActions = ActionMap<AppPayload>[keyof ActionMap<AppPayload>];
@@ -47,3 +43,21 @@ export interface CharacterData {
   name: string;
   value: string;
 }
+
+export type ExpresionTokenType = 'variable' | 'operator' | 'parenthesis';
+export interface ExpressionToken {
+  type: ExpresionTokenType;
+  value: string;
+}
+
+export interface ExpressionNode {
+  leftNode: ExpressionNode | null;
+  rightNode: ExpressionNode | null;
+  data: {
+    expression: string;
+    type: ExpresionTokenType;
+    value: boolean;
+  };
+}
+
+export type TruthTable = Record<string, boolean>[];

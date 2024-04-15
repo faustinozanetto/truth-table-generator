@@ -1,6 +1,5 @@
 import { AppActionType, AppState } from 'types/app.types';
 import useAppState from './use-app-state';
-import useDebounce from './use-debounce';
 
 interface UseExpressionInputReturn {
   expression: AppState['expression'];
@@ -12,14 +11,15 @@ interface UseExpressionInputReturn {
 const useExpressionInput = (): UseExpressionInputReturn => {
   const { dispatch, state } = useAppState();
 
-  // const debouncedInputValue = useDebounce<string>(inputValue, 100);
-
   const deleteExpression = () => {
-    if (state.inputRef.current) state.inputRef.current.value = '';
     dispatch({ type: AppActionType.CLEAR_EXPRESSION, payload: {} });
   };
 
-  const copyExpression = () => {};
+  const copyExpression = async () => {
+    try {
+      await navigator.clipboard.writeText(state.expression);
+    } catch (err) {}
+  };
 
   const handleInputChange = (value: string) => {
     dispatch({ type: AppActionType.SET_EXPRESSION, payload: { expression: value } });

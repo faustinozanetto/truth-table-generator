@@ -10,7 +10,7 @@ const ThemeToggler: React.FC = () => {
   };
 
   return (
-    <Button aria-label="Toggle Theme" size="icon" onClick={handleThemeChange}>
+    <Button aria-label="Toggle Theme" className="aspect-square" size="icon" onClick={handleThemeChange}>
       <svg
         className="block h-6 w-6 stroke-current dark:hidden"
         fill="none"
