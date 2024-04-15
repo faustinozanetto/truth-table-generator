@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { AppActionType, AppState } from 'types/app.types';
 import useAppState from './use-app-state';
 import useDebounce from './use-debounce';
@@ -14,10 +13,6 @@ const useExpressionInput = (): UseExpressionInputReturn => {
   const { dispatch, state } = useAppState();
 
   // const debouncedInputValue = useDebounce<string>(inputValue, 100);
-
-  // useEffect(() => {
-  //   dispatch({ type: AppActionType.SET_EXPRESSION, payload: { expression: inputValue } });
-  // }, [inputValue]);
 
   const deleteExpression = () => {
     if (state.inputRef.current) state.inputRef.current.value = '';

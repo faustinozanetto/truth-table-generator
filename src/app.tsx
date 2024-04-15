@@ -2,6 +2,7 @@ import React from 'react';
 import ThemeToggler from '@components/theme/theme-toggler';
 import ExpressionInput from '@components/expression/expression-input';
 import Characters from '@components/characters/characters';
+import Table from '@components/table/table';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <div className="container max-w-3xl space-y-2 md:space-y-4">
         <ExpressionInput />
         <Characters />
+        <Table />
       </div>
     </div>
   );

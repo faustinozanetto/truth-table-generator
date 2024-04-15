@@ -5,7 +5,8 @@ import useAppState from '@hooks/use-app-state';
 import { AppActionType } from 'types/app.types';
 
 const Characters: React.FC = () => {
-  const { state, dispatch } = useAppState();
+  const { dispatch } = useAppState();
+
   return (
     <div className="flex gap-2 flex-wrap justify-center items-center">
       {CHARACTERS.map((character) => (

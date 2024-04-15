@@ -29,4 +29,12 @@ export const CHARACTERS: CharacterData[] = [
     name: 'Implication',
     value: '→',
   },
+  {
+    name: 'Open Parenthesis',
+    value: '(',
+  },
+  {
+    name: 'Close Parenthesis',
+    value: ')',
+  },
 ];
