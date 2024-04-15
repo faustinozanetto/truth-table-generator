@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from 'next-theme-kit';
-import {  Button } from 'ui/components/button';
+import { Button } from 'ui/components/button';
 
 const ThemeToggler: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -10,7 +10,7 @@ const ThemeToggler: React.FC = () => {
   };
 
   return (
-    <Button aria-label="Toggle Theme" size="icon" onClick={handleThemeChange} >
+    <Button aria-label="Toggle Theme" size="icon" onClick={handleThemeChange}>
       <svg
         className="block h-6 w-6 stroke-current dark:hidden"
         fill="none"

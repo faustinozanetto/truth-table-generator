@@ -1,6 +1,6 @@
 import React from 'react';
-import ThemeToggler from '@modules/theme/components/theme-toggler';
-import ExpressionInput from '@modules/expression/components/expression-input';
+import ThemeToggler from '@components/theme/theme-toggler';
+import ExpressionInput from '@components/expression/expression-input';
 
 const App: React.FC = () => {
   return (
