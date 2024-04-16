@@ -14,9 +14,7 @@ const Table: React.FC = () => {
       const { truthTable, variables } = generateTruthTableFromExpression(state.expression);
       setTruthTable(truthTable);
       setVariables(variables);
-    } catch (err) {
-      console.log({ err });
-    }
+    } catch (err) {}
   }, [state.expression]);
 
   if (truthTable.length === 0) return null;

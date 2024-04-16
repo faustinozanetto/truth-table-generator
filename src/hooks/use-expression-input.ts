@@ -2,9 +2,22 @@ import { AppActionType, AppState } from 'types/app.types';
 import useAppState from './use-app-state';
 
 interface UseExpressionInputReturn {
+  /**
+   * The boolean expression.
+   */
   expression: AppState['expression'];
+  /**
+   * Function for deleting the expresion from the input.
+   */
   deleteExpression: () => void;
+  /**
+   * Function for copying the expression to clipboard.
+   */
   copyExpression: () => void;
+  /**
+   * Callback function for handling the input change event.
+   * @param value Input value.
+   */
   handleInputChange: (value: string) => void;
 }
 

@@ -1,8 +1,13 @@
-import { ExpressionNode, ExpressionToken, TruthTable } from 'types/app.types';
-import { OPERATORS_PRECEDENCE, OPERATOR_REGEX, PARENTHESES_REGEX, VARIABLE_REGEX } from './characters.lib';
+import { ExpressionNode, ExpressionToken, TruthTable, TruthTableEntry } from 'types/app.types';
+import { OPERATORS_PRECEDENCE, OPERATOR_REGEX, VARIABLE_REGEX } from './characters.lib';
 import Stack from './stack';
 
-export const generateTruthTableFromExpression = (expression: string) => {
+export const generateTruthTableFromExpression = (
+  expression: string
+): {
+  variables: string[];
+  truthTable: TruthTable;
+} => {
   if (expression === '') {
     return {
       variables: [],
@@ -10,15 +15,23 @@ export const generateTruthTableFromExpression = (expression: string) => {
     };
   }
 
+  // Tokenize expression and generate expression tree.
   const tokens = shuntingYardTokenization(expression);
   const tree = generateExpressionTree(tokens);
+
+  if (!tree) {
+    return {
+      variables: [],
+      truthTable: [],
+    };
+  }
 
   const variables = extractVariablesFromExpression(expression);
   const truthTable: TruthTable = [];
 
   // Generate all possible combinations of truth values for the variables
   for (let i = 0; i < Math.pow(2, variables.length); i++) {
-    const variableValues: { [key: string]: boolean } = {};
+    const variableValues: TruthTableEntry = {};
     for (let j = 0; j < variables.length; j++) {
       variableValues[variables[j]] = !!(i & (1 << j));
     }
@@ -32,14 +45,14 @@ export const generateTruthTableFromExpression = (expression: string) => {
   return { variables, truthTable };
 };
 
-const extractVariablesFromExpression = (expression: string): string[] => {
+export const extractVariablesFromExpression = (expression: string): string[] => {
   const variables = new Set<string>();
   expression.split('').forEach((character) => (VARIABLE_REGEX.test(character) ? variables.add(character) : null));
 
   return Array.from(variables.values());
 };
 
-const shuntingYardTokenization = (expression: string): ExpressionToken[] => {
+export const shuntingYardTokenization = (expression: string): ExpressionToken[] => {
   const tokens: ExpressionToken[] = [];
   const operatorStack: string[] = [];
 
@@ -75,7 +88,9 @@ const shuntingYardTokenization = (expression: string): ExpressionToken[] => {
   return tokens;
 };
 
-const generateExpressionTree = (tokens: ExpressionToken[]) => {
+export const generateExpressionTree = (tokens: ExpressionToken[]): ExpressionNode | null => {
+  if (tokens.length === 0) return null;
+
   const stack = new Stack<ExpressionNode>();
 
   for (const token of tokens) {
@@ -148,7 +163,7 @@ const generateExpressionTree = (tokens: ExpressionToken[]) => {
   return stack.pop()!;
 };
 
-const evaluateExpression = (node: ExpressionNode, variableValues: { [key: string]: boolean }): boolean => {
+export const evaluateExpression = (node: ExpressionNode, variableValues: TruthTableEntry): boolean => {
   if (node.data.type === 'variable') {
     return variableValues[node.data.expression];
   } else if (node.data.type === 'operator') {

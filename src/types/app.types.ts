@@ -60,4 +60,5 @@ export interface ExpressionNode {
   };
 }
 
-export type TruthTable = Record<string, boolean>[];
+export type TruthTableEntry = Record<string, boolean>;
+export type TruthTable = TruthTableEntry[];
