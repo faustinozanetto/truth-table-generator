@@ -101,7 +101,6 @@ export const generateExpressionTree = (tokens: ExpressionToken[]): ExpressionNod
         data: {
           expression: token.value,
           type: 'variable',
-          value: false, // Default value for variables
         },
       };
       stack.push(variableNode);
@@ -124,7 +123,6 @@ export const generateExpressionTree = (tokens: ExpressionToken[]): ExpressionNod
           data: {
             expression: token.value,
             type: 'operator',
-            value: false, // Default value for operators
           },
         };
         stack.push(operatorNode);
@@ -147,7 +145,6 @@ export const generateExpressionTree = (tokens: ExpressionToken[]): ExpressionNod
           data: {
             expression: token.value,
             type: 'operator',
-            value: false, // Default value for operators
           },
         };
         stack.push(operatorNode);

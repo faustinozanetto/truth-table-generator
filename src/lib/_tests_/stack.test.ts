@@ -1,38 +1,56 @@
-import { expect, test } from 'vitest';
+import { expect, describe, beforeEach, it, test } from 'vitest';
 import Stack from '../stack';
 
-test('isEmpty should return true for an empty Stack', () => {
-  const stack = new Stack<number>();
-  expect(stack.isEmpty()).toBe(true);
-});
+describe('Stack', () => {
+  let stack: Stack<number>;
 
-test('isEmpty should return false for a non empty Stack', () => {
-  const stack = new Stack<number>();
-  stack.push(10);
-  expect(stack.isEmpty()).toBe(false);
-});
+  beforeEach(() => {
+    stack = new Stack<number>();
+  });
 
-test('pop should the first element in a Stack and then return empty', () => {
-  const stack = new Stack<number>();
-  stack.push(10);
-  expect(stack.pop()).toBe(10);
-  expect(stack.isEmpty()).toBe(true);
-});
+  it('should push items onto the stack', () => {
+    stack.push(1);
+    expect(stack.size()).toBe(1);
+    expect(stack.peek()).toBe(1);
+  });
 
-test('peek should return the first element in a Stack and then return non empty', () => {
-  const stack = new Stack<number>();
-  stack.push(10);
-  expect(stack.peek()).toBe(10);
-  expect(stack.isEmpty()).toBe(false);
-});
+  it('should pop items from the stack', () => {
+    stack.push(1);
+    stack.push(2);
+    expect(stack.size()).toBe(2);
 
-test('size should return 0 for an empty Stack', () => {
-  const stack = new Stack<number>();
-  expect(stack.size()).toBe(0);
-});
+    const poppedItem = stack.pop();
+    expect(poppedItem).toBe(2);
+    expect(stack.size()).toBe(1);
+  });
 
-test('size should return 1 for Stack with one element', () => {
-  const stack = new Stack<number>();
-  stack.push(10);
-  expect(stack.size()).toBe(1);
+  it('should return undefined when popping from an empty stack', () => {
+    expect(stack.pop()).toBeUndefined();
+  });
+
+  it('should return the top item without removing it', () => {
+    stack.push(1);
+    stack.push(2);
+
+    const topItem = stack.peek();
+    expect(topItem).toBe(2);
+    expect(stack.size()).toBe(2);
+  });
+
+  it('should return undefined when peeking from an empty stack', () => {
+    expect(stack.peek()).toBeUndefined();
+  });
+
+  it('should check if the stack is empty', () => {
+    expect(stack.isEmpty()).toBe(true);
+    stack.push(1);
+    expect(stack.isEmpty()).toBe(false);
+  });
+
+  it('should return the size of the stack', () => {
+    expect(stack.size()).toBe(0);
+    stack.push(1);
+    stack.push(2);
+    expect(stack.size()).toBe(2);
+  });
 });

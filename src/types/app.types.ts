@@ -56,7 +56,6 @@ export interface ExpressionNode {
   data: {
     expression: string;
     type: ExpresionTokenType;
-    value: boolean;
   };
 }
 
